@@ -69,14 +69,24 @@
   
        $scope.sendMessage = function (body, isGroup) {
           if (!isGroup) {
-              XMPPie.sendMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body });
+              XMPPie.sendMessage({ "OpenfireID": {{openfireid}} "message": body });
           }
           else {
-              XMPPie.sendGroupMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body });
+              XMPPie.sendGroupMessage({ "OpenfireID": {{openfireid}}, "message": body });
           }
        }
        
  Message sent callback
+      
        XMPPie.on("sendMessageSuccess", function (event, data) {
              
         });
+        
+ Send typing presence
+        
+        XMPPie.typer({{openfireid}});
+        
+ set Presence
+ 
+        XMPPie.setPresence("Away");
+        XMPPie.setPresence("Offline");
