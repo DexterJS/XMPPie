@@ -66,24 +66,17 @@
       });
       
   Send message to user
-  $scope.sendMessage = function (body, isGroup) {
-                 if (!isGroup) {
-                     XMPPie.sendMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body, "body": { 'OpenfireID': XMPPie.OpenFireID, "Nickname": StorageHouse.getItem("FullName"), "Message": body, 'time': new Date().toISOString() } });
-                 }
-                 else {
-                     XMPPie.sendGroupMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body, "body": { 'OpenfireID': XMPPie.OpenFireID, "Nickname": StorageHouse.getItem("FullName"), "Message": body, 'time': new Date().toISOString(), "isGroup": true, "GroupUserOpenfireID": XMPPie.OpenFireID } });
-                 }
-
-                 $scope.message = "";
-                 $scope.isEmpty = false;
-                 $scope.isdisable = true;
-             }
-
-             XMPPie.on("sendMessageSuccess", function (event, data) {
-                 if ($scope.userInfo) {
-                     if ($scope.userInfo.OpenfireID == data.to) {
-                         $scope.isEmpty = false;
-                         $scope.messages.push({ 'OpenfireID': XMPPie.OpenFireID, "Nickname": StorageHouse.getItem("FullName"), "Message": data.message, 'time': new Date().toISOString() });
-                     }
-                 }
-             });
+  
+       $scope.sendMessage = function (body, isGroup) {
+          if (!isGroup) {
+              XMPPie.sendMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body });
+          }
+          else {
+              XMPPie.sendGroupMessage({ "OpenfireID": $scope.userInfo.OpenfireID, "message": body });
+          }
+       }
+       
+ Message sent callback
+       XMPPie.on("sendMessageSuccess", function (event, data) {
+             
+        });
